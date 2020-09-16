@@ -4,7 +4,7 @@ LABEL maintainer="mamvai@amazon.com"
 
 COPY HelloWorld-1.0.war /usr/local/tomcat/webapps/  
 
-EXPOSE 80
+EXPOSE 8080
 
 COPY index.html /usr/local/tomcat/webapps/ROOT/
 

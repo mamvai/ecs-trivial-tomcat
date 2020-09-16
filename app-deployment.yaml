@@ -1,0 +1,131 @@
+Description: >
+  Example Cloudformation template to deploy and manage the example application on the example ECS Cluster.
+
+Parameters:
+  ECSStackName:
+    Description: The name of the ecs-trivial-cluster Cloudformation stack.
+    Type: String
+
+  ExampleAppImagePath:
+    Description: Link to the ECR image for example container.
+    Type: String
+
+  ExampleAppImageTag:
+    Description: "Tagged image to deploy. (Hint: do not use 'latest' or you'll have a bad time.)"
+    Type: String
+
+  ExampleAppInsidePort:
+    Description: "What TCP port is the container listening on? (The load balancer will route requests to this port, regardless of the end user's connection port.)"
+    Type: Number
+    Default: 80
+
+  ExampleAppLoadBalancerPriority:
+    Description: What priority should we use when inserting our ListenerRule into the Application Load Balancer?
+    Type: Number
+    Default: 100
+  
+Resources:
+  ExampleAppService:
+    Type: AWS::ECS::Service
+    DependsOn: ExampleAppHTTPListenerRule
+    Properties:
+      Cluster:
+        Fn::ImportValue:
+          !Sub "${ECSStackName}-Cluster"
+      DesiredCount: 1
+      TaskDefinition: !Ref ExampleAppTaskDefinition
+      LaunchType: FARGATE
+      NetworkConfiguration: 
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          Subnets:
+            Fn::Split: [ ",", { "Fn::ImportValue": { "Fn::Sub": "${ECSStackName}-PublicSubnets" } } ]
+          SecurityGroups:
+            - !Ref ExampleAppSecurityGroup
+      LoadBalancers:
+        - ContainerName: exampleapp
+          ContainerPort: !Ref ExampleAppInsidePort
+          TargetGroupArn: !Ref ExampleAppTargetGroup
+
+  ExampleAppSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${ECSStackName}-VPC"
+      GroupDescription: Allow traffic from the ALB to the Application
+      SecurityGroupIngress:
+        - SourceSecurityGroupId:
+            Fn::ImportValue:
+              !Sub "${ECSStackName}-ALBSecurityGroupId"
+          FromPort: !Ref ExampleAppInsidePort
+          ToPort: !Ref ExampleAppInsidePort
+          IpProtocol: tcp
+      Tags:
+        - Key: Name
+          Value: Example App Security Group
+                  
+  ExampleAppTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: exampleapp
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      Cpu: 256
+      Memory: 0.5GB
+      ExecutionRoleArn:
+        Fn::ImportValue:
+          !Sub "${ECSStackName}-ECSTaskExecutionRoleArn"
+      ContainerDefinitions:
+        - Name: exampleapp
+          Essential: true
+          Image: !Sub "${ExampleAppImagePath}:${ExampleAppImageTag}"
+          PortMappings:
+            - ContainerPort: !Ref ExampleAppInsidePort
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref ExampleAppCloudWatchLogsGroup
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: ecs
+
+  ExampleAppCloudWatchLogsGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 365
+
+  ExampleAppTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      TargetType: ip
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${ECSStackName}-VPC"
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 60 # drain faster during rolling deployments
+      Port: !Ref ExampleAppInsidePort
+      Protocol: HTTP
+      Matcher:
+        HttpCode: 200-299
+      HealthCheckIntervalSeconds: 10
+      HealthCheckPath: /
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+
+  ExampleAppHTTPListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      ListenerArn:
+        Fn::ImportValue:
+          !Sub "${ECSStackName}-LoadBalancerHTTPListener"
+      Priority: !Ref ExampleAppLoadBalancerPriority
+      Conditions:
+        - Field: path-pattern
+          Values:
+            - "/*"
+      Actions:
+        - TargetGroupArn: !Ref ExampleAppTargetGroup
+          Type: forward

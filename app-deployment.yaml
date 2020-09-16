@@ -68,7 +68,7 @@ Resources:
   ExampleAppTaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Family: exampleapp
+      Family: !Sub "${AWS::StackName}-exampleapp"
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE

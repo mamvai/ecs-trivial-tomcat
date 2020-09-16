@@ -3,7 +3,10 @@ version: 0.2
 env:
   variables:
     DOCKER_BUILD_IMAGE: 259525371233.dkr.ecr.us-east-2.amazonaws.com/test
-    APPNAME: ecs-trivial-tomcat
+    ECSSTACK: ecs-trivial-cluster
+    APP_NAME: ecs-trivial-tomcat
+    APP_PORT: 80
+    APP_LB_PRIORITY: 100
 
 phases:
   # install:
@@ -21,10 +24,10 @@ phases:
   post_build:
     commands:
       ### BUILD THE DOCKER IMAGE ###
-      - docker build -t "${APPNAME}" src
-      - docker tag "${APPNAME}":latest "${DOCKER_BUILD_IMAGE}":"${REV}"
-      - docker tag "${APPNAME}":latest "${DOCKER_BUILD_IMAGE}":latest
+      - docker build -t "${APP_NAME}" src
+      - docker tag "${APP_NAME}":latest "${DOCKER_BUILD_IMAGE}":"${REV}"
+      - docker tag "${APP_NAME}":latest "${DOCKER_BUILD_IMAGE}":latest
       - docker push "${DOCKER_BUILD_IMAGE}":"${REV}"
       - docker push "${DOCKER_BUILD_IMAGE}":latest
       ### DEPLOY THE ECS SERVICE ###
-      - echo "FIXME - implement"
+      - aws cloudformation deploy --no-fail-on-empty-changeset --template-file app-deployment.yaml --stack-name "${APP_NAME}" --parameter-overrides ECSStackName="${ECSSTACK}" ExampleAppImagePath="${DOCKER_BUILD_IMAGE}" ExampleAppImageTag="${REV}" ExampleAppInsidePort=80 ExampleAppLoadBalancerPriority=100

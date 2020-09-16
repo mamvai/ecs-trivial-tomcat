@@ -1,4 +1,11 @@
+FROM tomcat:9.0.37
 
-### FIXME - your code here :)
-FROM nginx:latest
+LABEL maintainer="mamvai@amazon.com"
+
+COPY HelloWorld-1.0.war /usr/local/tomcat/webapps/  
+
 EXPOSE 80
+
+COPY index.html /usr/local/tomcat/webapps/ROOT/
+
+CMD ["catalina.sh", "run"]

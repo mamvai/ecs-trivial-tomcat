@@ -17,7 +17,11 @@ phases:
   build:
     commands:
       ### BUILD YOUR WAR FILE ###
-      - echo "FIXME - your code here"
+      - echo "Maven build code here"
+      - cd src
+      - mvn -q clean install
+      - cp target/HelloWorld-1.0.war  .
+      - cd ..
   post_build:
     commands:
       ### BUILD THE DOCKER IMAGE ###

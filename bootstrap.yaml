@@ -63,7 +63,9 @@ Resources:
             Type: PLAINTEXT
         Image: aws/codebuild/amazonlinux2-x86_64-standard:3.0
         Type: LINUX_CONTAINER
-      ServiceRole: !Ref ExampleAppCodeBuildServiceRole
+      ServiceRole:
+        Fn::ImportValue:
+          !Sub "${ECSStackName}-AppDeployCodeBuildServiceRoleArn"
       Source:
         Type: GITHUB
         Location: !Ref ExampleAppGitRepository
@@ -82,58 +84,3 @@ Resources:
             ],
           ]
         Webhook: true
-
-  ####################################################
-  ###### IAM Role for CodeBuild Job Permissions ######
-  ####################################################
-  ExampleAppCodeBuildServiceRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - codebuild.amazonaws.com
-            Action:
-              - "sts:AssumeRole"
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AmazonECS_FullAccess
-        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser
-        - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
-        - arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess
-        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
-      Policies:
-        - PolicyName: !Sub codebuild-content-servicerole-${AWS::StackName}
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Resource:
-                  - "*"
-                Action:
-                  - logs:CreateLogGroup
-                  - logs:CreateLogStream
-                  - logs:PutLogEvents
-              - Effect: Allow
-                Action:
-                  - codebuild:CreateReportGroup
-                  - codebuild:CreateReport
-                  - codebuild:UpdateReport
-                  - codebuild:BatchPutTestCases
-                  - codebuild:BatchPutCodeCoverages
-                Resource: !Sub "arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:report-group/*"
-              - Effect: Allow
-                Action:
-                  - ec2:DescribeSecurityGroup*
-                  - ec2:AuthorizeSecurityGroup*
-                  - ec2:CreateSecurityGroup
-                  - ec2:DeleteSecurityGroup
-                  - ec2:RevokeSecurityGroup*
-                  - ec2:UpdateSecurityGroup*
-                  - ec2:CreateTags
-                  - ec2:DeleteTags
-                  - ec2:DescribeTags
-                Resource:
-                  - "*"

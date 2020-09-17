@@ -31,4 +31,4 @@ phases:
       - docker push "${DOCKER_BUILD_IMAGE}":"${REV}"
       - docker push "${DOCKER_BUILD_IMAGE}":latest
       ### DEPLOY THE ECS SERVICE ###
-      - aws cloudformation deploy --no-fail-on-empty-changeset --template-file app-deployment.yaml --stack-name "${APP_NAME}" --parameter-overrides ECSStackName="${ECSSTACK}" ExampleAppImagePath="${DOCKER_BUILD_IMAGE}" ExampleAppImageTag="${REV}" ExampleAppInsidePort="${APP_PORT}" ExampleAppLoadBalancerPriority=100
+      - aws cloudformation deploy --no-fail-on-empty-changeset --template-file app-deployment.yaml --stack-name "${APP_NAME}" --parameter-overrides ECSStackName="${ECSSTACK}" ExampleAppImagePath="${DOCKER_BUILD_IMAGE}" ExampleAppImageTag="${REV}" ExampleAppInsidePort="${APP_PORT}" ExampleAppLoadBalancerPriority="${APP_LB_PRIORITY}"

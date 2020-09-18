@@ -17,7 +17,7 @@ Parameters:
   ExampleAppInsidePort:
     Description: "What TCP port is the container listening on? (The load balancer will route requests to this port, regardless of the end user's connection port.)"
     Type: Number
-    Default: 80
+    Default: 8080
 
   ExampleAppLoadBalancerPriority:
     Description: What priority should we use when inserting our ListenerRule into the Application Load Balancer?

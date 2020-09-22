@@ -13,7 +13,7 @@
   <servlet>
         <servlet-name>crunchify</servlet-name>
         <servlet-class>
-            crunchify.com.tutorials.CrunchifyWarUsingMaven
+            main.java.crunchify.com.tutorials.CrunchifyWarUsingMaven
         </servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>

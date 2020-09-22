@@ -19,7 +19,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>crunchify</servlet-name>
-        <url-pattern>/crunchify</url-pattern>
+        <url-pattern>/crunch</url-pattern>
     </servlet-mapping>
     
 </web-app>

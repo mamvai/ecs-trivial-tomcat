@@ -37,5 +37,6 @@ phases:
       - cat imagedefinitions.json
 
 artifacts:
-  files:
-    - '**/*'
+  files: imagedefinitions.json
+  #files:
+  #  - '**/*'

@@ -1,0 +1,6 @@
+[
+  {
+    "name": "ecs-devops-sandbox",
+    "imageUri": "087378851975.dkr.ecr.us-east-1.amazonaws.com/ecs-devops-sandbox-repository:Latest"
+  }
+]

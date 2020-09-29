@@ -13,7 +13,7 @@ phases:
 
   build:
     commands:
-      - cd mavensrc
+      - cd src
       - mvn -q clean install
       - cp target/HelloWorld-1.0.war  . 
       - jar -tvf HelloWorld-1.0.war

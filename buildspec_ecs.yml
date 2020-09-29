@@ -32,6 +32,8 @@ phases:
       - echo "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
       - echo Writing image definitions file...
       - printf '[{"name":"exampleapp","imageUri":"%s"}]' $IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
+      - ls -lrt 
+      - cat imagedefinitions.json
 
 artifacts:
   files:

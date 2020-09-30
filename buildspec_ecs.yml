@@ -16,7 +16,7 @@ phases:
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
       #- REV=$(git rev-parse --short https://github.com/mamvai/ecs-trivial-tomcat.git)
-      - REV=$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - REV=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)       
   build:
     commands:
       ### BUILD YOUR WAR FILE ###

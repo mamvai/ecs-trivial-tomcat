@@ -2,7 +2,7 @@ version: 0.2
 env:
   git-credential-helper: yes
   variables:
-    DOCKER_BUILD_IMAGE: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
+    
     APP_NAME: ecs-trivial-tomcat
 phases:
   install:
@@ -16,7 +16,7 @@ phases:
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
       #- REV=$(git rev-parse --short HEAD)
-      #- DOCKER_BUILD_IMAGE=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
+      - DOCKER_BUILD_IMAGE=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
       - REV=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)       
   build:
     commands:

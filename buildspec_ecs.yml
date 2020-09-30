@@ -14,7 +14,7 @@ phases:
       - java --version
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-      #- git log
+      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
       #- REV=$(git rev-parse --short https://github.com/mamvai/ecs-trivial-tomcat.git)
   build:
     commands:

@@ -31,9 +31,9 @@ phases:
       - DOCKER_BUILD_IMAGE=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
       - docker build -t "${APP_NAME}" src
       #- docker tag "${APP_NAME}":latest "${DOCKER_BUILD_IMAGE}":"${REV}"
-      - docker tag "${APP_NAME}":$IMAGE_TAG "${DOCKER_BUILD_IMAGE}":$IMAGE_TAG
+      - docker tag "${APP_NAME}":latest "${DOCKER_BUILD_IMAGE}":latest
       #- docker push "${DOCKER_BUILD_IMAGE}":"${REV}"
-      - docker push "${DOCKER_BUILD_IMAGE}":$IMAGE_TAG
+      - docker push "${DOCKER_BUILD_IMAGE}":latest
       - echo Writing image definitions file...
       - printf '[{"name":"exampleapp","imageUri":"%s"}]' ${DOCKER_BUILD_IMAGE} > imagedefinitions.json
 

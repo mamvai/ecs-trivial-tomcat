@@ -16,6 +16,7 @@ phases:
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
       #- REV=$(git rev-parse --short HEAD)
+      - DOCKER_BUILD_IMAGE=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
       - REV=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)       
   build:
     commands:
@@ -29,7 +30,6 @@ phases:
   post_build:
     commands:
       ### BUILD THE DOCKER IMAGE ###
-      - DOCKER_BUILD_IMAGE=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
       - docker build -t "${APP_NAME}" src
       - docker tag "${APP_NAME}":latest "${DOCKER_BUILD_IMAGE}":"${REV}"
       - docker tag "${APP_NAME}":latest "${DOCKER_BUILD_IMAGE}":latest

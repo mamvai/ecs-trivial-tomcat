@@ -1,5 +1,6 @@
 version: 0.2
 env:
+  git-credential-helper: yes
   variables:
     DOCKER_BUILD_IMAGE: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
     APP_NAME: ecs-trivial-tomcat
@@ -13,7 +14,7 @@ phases:
       - java --version
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-      - REV=$(git rev-parse --short https://github.com/mamvai/ecs-trivial-tomcat)
+      - REV=$(git rev-parse --short https://github.com/mamvai/ecs-trivial-tomcat.git)
   build:
     commands:
       ### BUILD YOUR WAR FILE ###

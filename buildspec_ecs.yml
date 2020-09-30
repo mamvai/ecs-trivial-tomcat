@@ -13,7 +13,7 @@ phases:
       - java --version
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-      #- REV=$(git rev-parse --short HEAD)
+      - REV=$(git rev-parse --short https://github.com/mamvai/ecs-trivial-tomcat)
   build:
     commands:
       ### BUILD YOUR WAR FILE ###

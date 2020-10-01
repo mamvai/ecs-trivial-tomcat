@@ -14,5 +14,6 @@ EXPOSE 8080
 COPY index.html /usr/local/tomcat/webapps/ROOT/
 
 RUN ls -lrt webapps
+RUN cat /usr/local/tomcat/conf/catalina.properties
 
 CMD ["catalina.sh", "run"]

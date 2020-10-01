@@ -13,16 +13,16 @@
   <servlet>
         <servlet-name>crunchify</servlet-name>
         <servlet-class>
-            main.java.crunchify.com.tutorials.CrunchifyWarUsingMaven
+            crunchify.com.tutorials.CrunchifyWarUsingMaven
         </servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>crunchify</servlet-name>
-        <url-pattern>/crunch</url-pattern>
+        <url-pattern>/crunchify</url-pattern>
     </servlet-mapping>
-  
-  <servlet>
+    
+    <servlet>
         <servlet-name>crunchifyboot</servlet-name>
         <servlet-class>
             crunchify.com.tutorials.CrunchifyHelloWorldSpringBoot
@@ -33,17 +33,20 @@
         <servlet-name>crunchifyboot</servlet-name>
         <url-pattern>/crunchifyboot</url-pattern>
     </servlet-mapping>
-  
-  <servlet>
-        <servlet-name>crunchifybootmain</servlet-name>
-        <servlet-class>
-            main.java.crunchify.com.tutorials.CrunchifyHelloWorldSpringBoot
-        </servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>crunchifybootmain</servlet-name>
-        <url-pattern>/crunchifybootmain</url-pattern>
-    </servlet-mapping>
+    
+    <servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>org.apache.struts.actions.ActionServlet</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/struts-config.xml</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
     
 </web-app>

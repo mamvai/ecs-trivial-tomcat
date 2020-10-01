@@ -4,6 +4,8 @@ LABEL maintainer="mamvai@amazon.com"
 
 COPY HelloWorld-1.0.war /usr/local/tomcat/webapps/  
 
+RUN ls -lrt
+RUN pwd
 RUN jar -tvf HelloWorld-1.0.war
 
 EXPOSE 8080

@@ -21,5 +21,17 @@
         <servlet-name>crunchify</servlet-name>
         <url-pattern>/crunch</url-pattern>
     </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>crunchifyboot</servlet-name>
+        <servlet-class>
+            crunchify.com.tutorials.CrunchifyHelloWorldSpringBoot
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>crunchifyboot</servlet-name>
+        <url-pattern>/crunchifyboot</url-pattern>
+    </servlet-mapping>
     
 </web-app>

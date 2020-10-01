@@ -1,4 +1,5 @@
-FROM tomcat:9.0.37
+FROM tomcat:9.0.38-jdk8-corretto
+#FROM tomcat:9.0.37
 
 LABEL maintainer="mamvai@amazon.com"
 

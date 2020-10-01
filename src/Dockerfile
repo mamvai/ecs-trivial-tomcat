@@ -6,11 +6,13 @@ COPY HelloWorld-1.0.war /usr/local/tomcat/webapps/
 
 RUN ls -lrt
 RUN pwd
-RUN ls -lrt webapps
+
 RUN jar -tvf webapps/HelloWorld-1.0.war
 
 EXPOSE 8080
 
 COPY index.html /usr/local/tomcat/webapps/ROOT/
+
+RUN ls -lrt webapps
 
 CMD ["catalina.sh", "run"]

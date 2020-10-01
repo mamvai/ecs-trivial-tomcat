@@ -24,7 +24,7 @@ public class CrunchifyHelloWorldSpringBoot {
 		return "Welcome to Spring Boot Hello World Tutorial";
 	}
  
-	@RequestMapping("crunchify")
+	@RequestMapping("crunchifyboot")
 	String crunchifyURL() {
 		return "Hello Crunchify Friends! This is your first SpringBoot Example. Isn't that so Simple?";
 	}

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import javax.servlet.ServletException;
@@ -37,7 +38,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 	}
 	private void runCLICmd(String yourCliCommandWithArgs, ServletOutputStream out) {
 		// ProcessBuilder pb = new ProcessBuilder ("sh", "-c","curl", "http://169.254.169.254/latest/meta-data/local-ipv4");
-		ProcessBuilder pb = new ProcessBuilder ("aws", "ecs", "list-container-instances");
+		ProcessBuilder pb = new ProcessBuilder ("sh", "-c","aws", "ecs", "list-container-instances");
 		Process process = null;
 		try {
 			out.println("step 1\n");
@@ -47,6 +48,18 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		InputStream in = process.getInputStream();
+		int i;
+		try {
+			while (-1 != (i = in.read())){
+			    System.out.write(i);
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		String line;
 		

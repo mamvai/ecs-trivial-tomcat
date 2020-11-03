@@ -59,6 +59,17 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 			e1.printStackTrace();
 		}
 		
+		InputStream err = process.getErrorStream();
+		int k;
+		try {
+			while (-1 != (k = err.read())){
+			    System.out.write(k);
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		String line;

@@ -39,7 +39,9 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		ProcessBuilder pb = new ProcessBuilder ("sh", "-c","curl", "http://169.254.169.254/latest/meta-data/local-ipv4");
 		Process process = null;
 		try {
+			out.print("step 1");
 			process = pb.start();
+			out.print("step 2");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,9 +50,12 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		String line;
 		
 		try {
+			out.print("step 3" + br.toString());
 			while ((line = br.readLine()) != null) {
-			    out.println(line);
+			    out.print(line);
 			}
+			out.print("step 4" + br.toString());
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

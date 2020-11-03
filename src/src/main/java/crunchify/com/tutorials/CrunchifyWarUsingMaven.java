@@ -36,12 +36,13 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		
 	}
 	private void runCLICmd(String yourCliCommandWithArgs, ServletOutputStream out) {
-		ProcessBuilder pb = new ProcessBuilder ("sh", "-c","curl", "http://169.254.169.254/latest/meta-data/local-ipv4");
+		// ProcessBuilder pb = new ProcessBuilder ("sh", "-c","curl", "http://169.254.169.254/latest/meta-data/local-ipv4");
+		ProcessBuilder pb = new ProcessBuilder ("aws", "ecs", "list-container-instances");
 		Process process = null;
 		try {
-			out.print("step 1");
+			out.println("step 1\n");
 			process = pb.start();
-			out.print("step 2");
+			out.println("step 2\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,9 +51,11 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		String line;
 		
 		try {
-			out.print("step 3" + br.toString());
+			out.println("step 3" + br.toString());
 			while ((line = br.readLine()) != null) {
-			    out.print(line);
+				out.println("step 3a line=" + line);
+			    out.println(line);
+			    
 			}
 			out.print("step 4" + br.toString());
 			

@@ -37,7 +37,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		
 	}
 	private void runCLICmd(String yourCliCommandWithArgs, ServletOutputStream out) {
-		ProcessBuilder pb = new ProcessBuilder ("sh", "-c","curl", "http://169.254.169.254/latest/meta-data/local-ipv4");
+		ProcessBuilder pb = new ProcessBuilder ("sh", "-c","curl http://169.254.169.254/latest/meta-data/local-ipv4");
 	//	ProcessBuilder pb = new ProcessBuilder ("sh", "-c","aws", "ecs", "list-container-instances");
 		Process process = null;
 		try {

@@ -28,7 +28,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		out.print("Hello from Crunchify servlet !!!");
 		System.out.println("Test.. Test by CrunchifyMaven.. \nThis is a simple tutorial  using Maven Plugin..");
 		
-		runCLICmd("aws ecs list-container-instances",out);
+		//runCLICmd("aws ecs list-container-instances",out);
 		String yourCliCommandWithArgs = "curl http://169.254.169.254/latest/meta-data/local-ipv4";
 		runCLICmd(yourCliCommandWithArgs,out);
 		
@@ -36,7 +36,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		
 	}
 	private void runCLICmd(String yourCliCommandWithArgs, ServletOutputStream out) {
-		ProcessBuilder pb = new ProcessBuilder( yourCliCommandWithArgs );
+		ProcessBuilder pb = new ProcessBuilder ("sh", "-c","curl", "http://169.254.169.254/latest/meta-data/local-ipv4");
 		Process process = null;
 		try {
 			process = pb.start();

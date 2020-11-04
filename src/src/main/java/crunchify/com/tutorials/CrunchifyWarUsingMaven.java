@@ -31,14 +31,28 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		
 		//runCLICmd("aws ecs list-container-instances",out);
 		String yourCliCommandWithArgs = "curl http://169.254.169.254/latest/meta-data/local-ipv4";
-		runCLICmd(yourCliCommandWithArgs,out);
 		
+		ProcessBuilder pb = new ProcessBuilder ("sh", "-c", "curl http://169.254.169.254/latest/meta-data/local-ipv4");
+		runCLICmd(yourCliCommandWithArgs,out,pb);
+		
+		pb = new ProcessBuilder ("sh", "-c", "whoami");
+		runCLICmd(yourCliCommandWithArgs,out,pb);
+		
+		pb = new ProcessBuilder ("sh", "-c", "ifconfig");
+		runCLICmd(yourCliCommandWithArgs,out,pb);
+		
+		pb = new ProcessBuilder ("sh", "-c", "curl http://localhost:51678/v1/metadata");
+		runCLICmd(yourCliCommandWithArgs,out,pb);
+		
+		pb = new ProcessBuilder ("sh", "-c", "curl http://172.17.0.1:51678/v1/metadata");
+		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		
 	}
-	private void runCLICmd(String yourCliCommandWithArgs, ServletOutputStream out) {
-		ProcessBuilder pb = new ProcessBuilder ("sh", "-c","curl http://169.254.169.254/latest/meta-data/local-ipv4");
+	private void runCLICmd(String yourCliCommandWithArgs, ServletOutputStream out, ProcessBuilder pb) {
+	//	ProcessBuilder pb = new ProcessBuilder ("sh", "-c","curl http://169.254.169.254/latest/meta-data/local-ipv4");
 	//	ProcessBuilder pb = new ProcessBuilder ("sh", "-c","aws", "ecs", "list-container-instances");
+	// 	ProcessBuilder pb = new ProcessBuilder ("sh", "-c", "whoami");
 		Process process = null;
 		try {
 			out.println("step 1\n");

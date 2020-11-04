@@ -76,9 +76,13 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		*/
 		
+		//ecs-cli configure -region us-east-2 -cluster ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj
+		//ecs-cli configure profile --access-key ASIARIWBPPCD4WAZPFO7 --secret-key eeaoKHcXk1I41Opf+jIO3y1BdSNv9/1dGGu4kK8X
+		//ecs-cli ps --aws-profile default --cluster ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj --desired-status RUNNING | grep Ports
 		pb = new ProcessBuilder ("sh", "-c", "curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest ; find . -name ecs-cli -print ; "
 				+ "export PATH=$PATH:/usr/local/bin ; echo $PATH ;  chmod +x /usr/local/bin/ecs-cli ; /usr/local/bin/ecs-cli --version ; ecs-cli --version ; "
-				+ "ecs-cli configure profile --profile-name default --access-key ASIARIWBPPCD4WAZPFO7 --secret-key eeaoKHcXk1I41Opf+jIO3y1BdSNv9/1dGGu4kK8X --region us-east-2 ; "
+				+ "ecs-cli configure -region us-east-2 -cluster ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj ;"
+				+ "ecs-cli configure profile --access-key ASIARIWBPPCD4WAZPFO7 --secret-key eeaoKHcXk1I41Opf+jIO3y1BdSNv9/1dGGu4kK8X --session-token IQoJb3JpZ2luX2VjEIH//////////wEaCXVzLWVhc3QtMSJIMEYCIQCIiB/c4oT9pzjJiAW6fH3yM8MrpAMX0Tjt2RLYKzb/VwIhAIpw92M9gt5jzhEb6h6ZpWWPrRJIQfEmpWS1eJ2GkynEKqYCCNr//////////wEQABoMMDg3Mzc4ODUxOTc1IgwekXiB0QnmI0mAFdcq+gG27ns2k1Oc24NevXsM2RSYZwSVWilVbonK63GlTBT16p0/XT65yAE1YTCkQpfsp4V56RV56ej8vu2UfY4gnNxGZZBIpx8aVPP+4NbiSaj2P+Lr+KL3ogp0EofTA9lnD2v+2//ONJ5khec3TKu4YRzZ7HqYr4gzJmGVGBV5tWvmLXSzazkcBpAFrisAEl5Jdlr5W43YMobc3xquEIrJHOAWKI4ZVtlEykxCxNF6r9RVTMFhC9KI8OcmS1Vj23+iB5hEnMau7taFbIsoWTQclCO1D1dTXm1M7r/dZ6FeM9h9UNh8T/Gji9aBxTJ8re21MWySq7Az6Z8c17fGMJ6ri/0FOpwBBjkqhS5U9mKwzZfN+Ll+zlsf4YG5ejVqwYV4rjaMnfqsUcE8swLFMThczfs4ba6wfa2PawHBJjvKlI6unJAm6rKpH1dlXQDx0ksZNvERKDasNfCW4ROLIEYr6wRCj7PKzYMYuo0X9XfAwbQRE02xOw3cdCXCuq6k406rDI0uX0RO1gX5Z1QUGQ+PNGOGzWhAlrP/XEBt+jjFalTT; "
 				+ "ecs-cli ps ; /usr/local/bin/ecs-cli ps");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		

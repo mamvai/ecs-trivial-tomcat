@@ -35,14 +35,14 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		//runCLICmd("aws ecs list-container-instances",out);
 		String yourCliCommandWithArgs = "export NO_PROXY=169.254.169.254,169.254.170.2 ; curl http://169.254.169.254/latest/meta-data/local-ipv4";
 		
-		ProcessBuilder pb = new ProcessBuilder ("sh", "-c", "curl http://169.254.169.254/latest/meta-data/local-ipv4");
+		ProcessBuilder pb = new ProcessBuilder ("sh", "-c", "export NO_PROXY=169.254.169.254,169.254.170.2 ; curl http://169.254.169.254/latest/meta-data/local-ipv4");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		pb = new ProcessBuilder ("sh", "-c", "whoami ; pwd ; cd /usr/local/tomcat ; ls -lrt ");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
-		pb = new ProcessBuilder ("sh", "-c", "yum install net-tools -y ; /sbin/ifconfig");
-		runCLICmd(yourCliCommandWithArgs,out,pb);
+		//pb = new ProcessBuilder ("sh", "-c", "yum install net-tools -y ; /sbin/ifconfig");
+		//runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		//pb = new ProcessBuilder ("sh", "-c", "curl http://localhost:51678/v1/metadata");
 		pb = new ProcessBuilder ("sh", "-c", "curl 169.254.170.2/v2/metadata");
@@ -64,7 +64,11 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		//pb = new ProcessBuilder ("sh", "-c", "curl http://172.17.0.1:51678/v1/metadata");
 		//runCLICmd(yourCliCommandWithArgs,out,pb);
 		
-		pb = new ProcessBuilder ("sh", "-c", "yum install python-setuptools -y ; easy_install pip; pip install awscli --upgrade --user ; cd / ; find . -name aws -print ; export PATH= ./root/.local/bin:$PATH ; ./root/.local/bin/aws --version ; ./root/.local/bin/aws ecs describe-tasks --cluster ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj --tasks arn:aws:ecs:us-east-2:087378851975:task/ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj/6677aff562c64881877cc88fd9280334");
+		pb = new ProcessBuilder ("sh", "-c", "yum install python-setuptools -y ; easy_install pip; pip install awscli --upgrade --user ; cd / ; find . -name aws -print ; "
+				+ "export PATH= ./root/.local/bin:$PATH ; ./root/.local/bin/aws --version ; ls -a ~ ; "
+				+ "./root/.local/bin/aws configure set aws_access_key_id ASIARIWBPPCD27BBQQH2 ; ./root/.local/bin/aws configure set aws_secret_access_key BB+PGA7ExQeITIqDB8/rDShVfdT2QHR+YSH8OYaC ; "
+				+ "./root/.local/bin/aws configure set default.region us-east-2"
+				+ "./root/.local/bin/aws ecs describe-tasks --cluster ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj --tasks arn:aws:ecs:us-east-2:087378851975:task/ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj/6677aff562c64881877cc88fd9280334");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		

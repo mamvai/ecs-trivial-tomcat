@@ -58,12 +58,15 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		        InetAddress i = (InetAddress) ee.nextElement();
 		        System.out.println(i.getHostAddress());
 		        out.print(i.getHostAddress());
+		        if (i.getHostAddress().startsWith("10.")) {
+		        	System.out.println("Found 10. address: " + i.getHostAddress() + " : " + i.getHostName() + " : " + i.getLocalHost());
+		        }
 		    }
 		}
 		
 		//pb = new ProcessBuilder ("sh", "-c", "curl http://172.17.0.1:51678/v1/metadata");
 		//runCLICmd(yourCliCommandWithArgs,out,pb);
-		
+		/*
 		pb = new ProcessBuilder ("sh", "-c", "yum install python-setuptools -y ; easy_install pip; pip install awscli --upgrade --user ; cd / ; find . -name aws -print ; "
 				+ "export PATH= ./root/.local/bin:$PATH ; ./root/.local/bin/aws --version ; ls -a ~ ; "
 				+ "./root/.local/bin/aws configure set aws_access_key_id ASIARIWBPPCD27BBQQH2 ; ./root/.local/bin/aws configure set aws_secret_access_key BB+PGA7ExQeITIqDB8/rDShVfdT2QHR+YSH8OYaC ; "
@@ -71,7 +74,11 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 				+ "./root/.local/bin/aws ecs list-container-instances");
 				// + "./root/.local/bin/aws ecs describe-tasks --cluster ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj --tasks arn:aws:ecs:us-east-2:087378851975:task/ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj/6677aff562c64881877cc88fd9280334");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
+		*/
 		
+		pb = new ProcessBuilder ("sh", "-c", "curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest ; find . -name ecs-cli -print ; "
+				+ "export PATH=$PATH:/usr/local/bin ; /usr/local/bin/ecs-cli --version ; ecs-cli --version");
+		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		//pb = new ProcessBuilder ("sh", "-c", "curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip  ; yum install unzip; unzip awscliv2.zip ;  ./aws/install ; export PATH=~/bin:$PATH ; aws --version ");
 		//runCLICmd(yourCliCommandWithArgs,out,pb);

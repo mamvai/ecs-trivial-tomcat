@@ -68,7 +68,8 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 				+ "export PATH= ./root/.local/bin:$PATH ; ./root/.local/bin/aws --version ; ls -a ~ ; "
 				+ "./root/.local/bin/aws configure set aws_access_key_id ASIARIWBPPCD27BBQQH2 ; ./root/.local/bin/aws configure set aws_secret_access_key BB+PGA7ExQeITIqDB8/rDShVfdT2QHR+YSH8OYaC ; "
 				+ "./root/.local/bin/aws configure set default.region us-east-2"
-				+ "./root/.local/bin/aws ecs describe-tasks --cluster ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj --tasks arn:aws:ecs:us-east-2:087378851975:task/ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj/6677aff562c64881877cc88fd9280334");
+				+ "./root/.local/bin/aws ecs list-container-instances");
+				// + "./root/.local/bin/aws ecs describe-tasks --cluster ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj --tasks arn:aws:ecs:us-east-2:087378851975:task/ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj/6677aff562c64881877cc88fd9280334");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		

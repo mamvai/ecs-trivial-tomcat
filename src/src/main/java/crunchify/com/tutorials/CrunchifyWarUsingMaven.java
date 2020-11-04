@@ -44,7 +44,8 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		pb = new ProcessBuilder ("sh", "-c", "yum install net-tools -y ; /sbin/ifconfig");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
-		pb = new ProcessBuilder ("sh", "-c", "curl http://localhost:51678/v1/metadata");
+		//pb = new ProcessBuilder ("sh", "-c", "curl http://localhost:51678/v1/metadata");
+		pb = new ProcessBuilder ("sh", "-c", "curl 169.254.170.2/v2/metadata");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		Enumeration e = NetworkInterface.getNetworkInterfaces();

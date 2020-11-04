@@ -63,8 +63,8 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		//pb = new ProcessBuilder ("sh", "-c", "curl http://172.17.0.1:51678/v1/metadata");
 		//runCLICmd(yourCliCommandWithArgs,out,pb);
 		
-		//pb = new ProcessBuilder ("sh", "-c", "pip3 install awscli --upgrade --user ; aws --version ");
-		//runCLICmd(yourCliCommandWithArgs,out,pb);
+		pb = new ProcessBuilder ("sh", "-c", "pip3 install awscli --upgrade --user ; aws --version ");
+		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		//pb = new ProcessBuilder ("sh", "-c", "curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip  ; unzip awscliv2.zip ; sudo ./aws/install ;aws --version ");
 		// runCLICmd(yourCliCommandWithArgs,out,pb);

@@ -77,7 +77,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		*/
 		
 		pb = new ProcessBuilder ("sh", "-c", "curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest ; find . -name ecs-cli -print ; "
-				+ "export PATH=$PATH:/usr/local/bin ; /usr/local/bin/ecs-cli --version ; ecs-cli --version");
+				+ "export PATH=$PATH:/usr/local/bin ; echo $PATH ;  chmod +x /usr/local/bin/ecs-cli ; /usr/local/bin/ecs-cli --version ; ecs-cli --version");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		//pb = new ProcessBuilder ("sh", "-c", "curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip  ; yum install unzip; unzip awscliv2.zip ;  ./aws/install ; export PATH=~/bin:$PATH ; aws --version ");

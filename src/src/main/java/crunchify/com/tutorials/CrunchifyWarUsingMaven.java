@@ -44,7 +44,10 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		pb = new ProcessBuilder ("sh", "-c", "curl http://localhost:51678/v1/metadata");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
-		pb = new ProcessBuilder ("sh", "-c", "curl http://172.17.0.1:51678/v1/metadata");
+		//pb = new ProcessBuilder ("sh", "-c", "curl http://172.17.0.1:51678/v1/metadata");
+		//runCLICmd(yourCliCommandWithArgs,out,pb);
+		
+		pb = new ProcessBuilder ("sh", "-c", "docker ps ");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		

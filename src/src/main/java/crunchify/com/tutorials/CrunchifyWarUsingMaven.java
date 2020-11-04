@@ -35,7 +35,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		ProcessBuilder pb = new ProcessBuilder ("sh", "-c", "curl http://169.254.169.254/latest/meta-data/local-ipv4");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
-		pb = new ProcessBuilder ("sh", "-c", "whoami");
+		pb = new ProcessBuilder ("sh", "-c", "whoami ; pwd ; cd /usr/local/tomcat ; ls -lrt ");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		pb = new ProcessBuilder ("sh", "-c", "ifconfig");

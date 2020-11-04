@@ -64,14 +64,14 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		//pb = new ProcessBuilder ("sh", "-c", "curl http://172.17.0.1:51678/v1/metadata");
 		//runCLICmd(yourCliCommandWithArgs,out,pb);
 		
-		pb = new ProcessBuilder ("sh", "-c", "yum install python-setuptools -y ; easy_install pip; pip install awscli --upgrade --user ; cd / ; find . -name aws -print ; export PATH= ./root/.local/bin/:$PATH ; aws --version");
+		pb = new ProcessBuilder ("sh", "-c", "yum install python-setuptools -y ; easy_install pip; pip install awscli --upgrade --user ; cd / ; find . -name aws -print ; export PATH= ./root/.local/bin:$PATH ; ./root/.local/bin/aws --version");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		
 		//pb = new ProcessBuilder ("sh", "-c", "curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip  ; yum install unzip; unzip awscliv2.zip ;  ./aws/install ; export PATH=~/bin:$PATH ; aws --version ");
 		//runCLICmd(yourCliCommandWithArgs,out,pb);
 		
-		pb = new ProcessBuilder ("sh", "-c" , "aws ecs describe-tasks --cluster ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj --tasks arn:aws:ecs:us-east-2:087378851975:task/ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj/6677aff562c64881877cc88fd9280334");
+		pb = new ProcessBuilder ("sh", "-c" , "./root/.local/bin/aws ecs describe-tasks --cluster ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj --tasks arn:aws:ecs:us-east-2:087378851975:task/ecs-trivial-cluster-ECSCluster-2COG3zXz2iAj/6677aff562c64881877cc88fd9280334");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 	}

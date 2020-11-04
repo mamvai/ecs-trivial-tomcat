@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -36,17 +37,17 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		String yourCliCommandWithArgs = "export NO_PROXY=169.254.169.254,169.254.170.2 ; curl http://169.254.169.254/latest/meta-data/local-ipv4";
 		
 		ProcessBuilder pb = new ProcessBuilder ("sh", "-c", "export NO_PROXY=169.254.169.254,169.254.170.2 ; curl http://169.254.169.254/latest/meta-data/local-ipv4");
-		runCLICmd(yourCliCommandWithArgs,out,pb);
+		//working -  runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		pb = new ProcessBuilder ("sh", "-c", "whoami ; pwd ; cd /usr/local/tomcat ; ls -lrt ");
-		runCLICmd(yourCliCommandWithArgs,out,pb);
+		//working  - runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		//pb = new ProcessBuilder ("sh", "-c", "yum install net-tools -y ; /sbin/ifconfig");
 		//runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		//pb = new ProcessBuilder ("sh", "-c", "curl http://localhost:51678/v1/metadata");
 		pb = new ProcessBuilder ("sh", "-c", "curl 169.254.170.2/v2/metadata");
-		runCLICmd(yourCliCommandWithArgs,out,pb);
+		//working - runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		Enumeration e = NetworkInterface.getNetworkInterfaces();
 		while(e.hasMoreElements())
@@ -118,7 +119,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+*/		
 		InputStream err = process.getErrorStream();
 		int k;
 		try {
@@ -129,7 +130,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}*/
+		}
 		
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -137,9 +138,23 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		
 		try {
 			out.println("step 3" + br.toString());
+			String publicIP = null; 
 			while ((line = br.readLine()) != null) {
-				out.println("\n step 3a line=" + line);
+				// out.println("\n step 3a line=" + line);
 			    out.println(line);
+			    StringTokenizer st = new StringTokenizer(line," ");
+			    while (st.hasMoreTokens()) {
+			    	if ( st.nextToken().equals("RUNNING")) {
+			    		publicIP = st.nextToken();
+			    		StringTokenizer stip = new StringTokenizer(publicIP,":");
+			    		while(stip.hasMoreTokens()) {
+			    			String IP =stip.nextToken();
+			    			System.out.println("PUBLIC IP = " + IP);
+			    			break ;
+			    		}
+			    		break;
+			    	}
+			    }
 			    
 			}
 			out.println("step 4" + br.toString());

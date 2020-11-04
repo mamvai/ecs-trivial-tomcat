@@ -33,7 +33,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		System.out.println("Test.. Test by CrunchifyMaven.. \nThis is a simple tutorial  using Maven Plugin..");
 		
 		//runCLICmd("aws ecs list-container-instances",out);
-		String yourCliCommandWithArgs = "curl http://169.254.169.254/latest/meta-data/local-ipv4";
+		String yourCliCommandWithArgs = "export NO_PROXY=169.254.169.254,169.254.170.2 ; curl http://169.254.169.254/latest/meta-data/local-ipv4";
 		
 		ProcessBuilder pb = new ProcessBuilder ("sh", "-c", "curl http://169.254.169.254/latest/meta-data/local-ipv4");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
@@ -64,7 +64,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		//pb = new ProcessBuilder ("sh", "-c", "curl http://172.17.0.1:51678/v1/metadata");
 		//runCLICmd(yourCliCommandWithArgs,out,pb);
 		
-		pb = new ProcessBuilder ("sh", "-c", "yum install python-setuptools ; pip install awscli --upgrade --user ; aws --version ");
+		pb = new ProcessBuilder ("sh", "-c", "yum install python-setuptools -y ; pip install awscli --upgrade --user ; aws --version ");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		//pb = new ProcessBuilder ("sh", "-c", "curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip  ; unzip awscliv2.zip ; sudo ./aws/install ;aws --version ");

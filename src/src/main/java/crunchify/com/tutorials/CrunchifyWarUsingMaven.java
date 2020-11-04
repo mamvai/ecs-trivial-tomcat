@@ -8,6 +8,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -38,11 +41,24 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		pb = new ProcessBuilder ("sh", "-c", "whoami ; pwd ; cd /usr/local/tomcat ; ls -lrt ");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
-		pb = new ProcessBuilder ("sh", "-c", "sudo yum install net-tools -y ; /sbin/ifconfig");
+		pb = new ProcessBuilder ("sh", "-c", "yum install net-tools -y ; /sbin/ifconfig");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		pb = new ProcessBuilder ("sh", "-c", "curl http://localhost:51678/v1/metadata");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
+		
+		Enumeration e = NetworkInterface.getNetworkInterfaces();
+		while(e.hasMoreElements())
+		{
+		    NetworkInterface n = (NetworkInterface) e.nextElement();
+		    Enumeration ee = n.getInetAddresses();
+		    while (ee.hasMoreElements())
+		    {
+		        InetAddress i = (InetAddress) ee.nextElement();
+		        System.out.println(i.getHostAddress());
+		        out.print(i.getHostAddress());
+		    }
+		}
 		
 		//pb = new ProcessBuilder ("sh", "-c", "curl http://172.17.0.1:51678/v1/metadata");
 		//runCLICmd(yourCliCommandWithArgs,out,pb);

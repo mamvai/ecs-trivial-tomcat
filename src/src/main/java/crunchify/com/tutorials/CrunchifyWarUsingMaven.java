@@ -38,7 +38,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		pb = new ProcessBuilder ("sh", "-c", "whoami ; pwd ; cd /usr/local/tomcat ; ls -lrt ");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
-		pb = new ProcessBuilder ("sh", "-c", "ifconfig");
+		pb = new ProcessBuilder ("sh", "-c", "sudo yum install net-tools -y ; /sbin/ifconfig");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 		pb = new ProcessBuilder ("sh", "-c", "curl http://localhost:51678/v1/metadata");
@@ -47,9 +47,11 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		//pb = new ProcessBuilder ("sh", "-c", "curl http://172.17.0.1:51678/v1/metadata");
 		//runCLICmd(yourCliCommandWithArgs,out,pb);
 		
-		pb = new ProcessBuilder ("sh", "-c", "docker ps ");
+		pb = new ProcessBuilder ("sh", "-c", "pip3 install awscli --upgrade --user ; aws --version ");
 		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
+		pb = new ProcessBuilder ("sh", "-c", "curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip  ; unzip awscliv2.zip ; sudo ./aws/install ;aws --version ");
+		runCLICmd(yourCliCommandWithArgs,out,pb);
 		
 	}
 	private void runCLICmd(String yourCliCommandWithArgs, ServletOutputStream out, ProcessBuilder pb) {
@@ -70,6 +72,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		try {
 			while (-1 != (i = in.read())){
 			    System.out.write(i);
+				out.print(i);
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -81,6 +84,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		try {
 			while (-1 != (k = err.read())){
 			    System.out.write(k);
+			    out.print(k);
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

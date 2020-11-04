@@ -106,6 +106,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		/*
 		InputStream in = process.getInputStream();
 		int i;
 		try {
@@ -128,7 +129,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 		
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -137,11 +138,11 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 		try {
 			out.println("step 3" + br.toString());
 			while ((line = br.readLine()) != null) {
-				out.println("step 3a line=" + line);
+				out.println("\n step 3a line=" + line);
 			    out.println(line);
 			    
 			}
-			out.print("step 4" + br.toString());
+			out.println("step 4" + br.toString());
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

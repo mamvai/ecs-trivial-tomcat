@@ -217,7 +217,7 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 			e.printStackTrace();
 		}
 	}
-	/*
+	
 	public static void main(String[] args) {
 		System.out
 				.println("In Main Test.. Test by CrunchifyMaven.. This is a simple tutorial  using Maven Plugin..");
@@ -242,5 +242,5 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}*/
+	}
 }

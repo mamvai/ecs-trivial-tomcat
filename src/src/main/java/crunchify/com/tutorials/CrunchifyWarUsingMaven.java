@@ -48,9 +48,14 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 	    // Jedis jedis = new Jedis("192.168.86.47",7001); 
 		Jedis jedis = new Jedis("epacache-ro.50fbfo.ng.0001.use2.cache.amazonaws.com",6379);
 	    
-	    System.out.println("Connection to redis server sucessfully"); 
+	    out.println("Connection to redis server sucessfully"); 
 	    //check whether server is running or not 
-	    System.out.println("Redis Server is running: "+jedis.ping()); 
+	    try {
+	    	out.println("Testing if Redis Server is running: " ); 
+	    	out.println("Redis Server is running: "+jedis.ping()); 
+	    }catch(Exception e ) {
+	    	e.printStackTrace();
+	    }
 	    
 	    /*
 

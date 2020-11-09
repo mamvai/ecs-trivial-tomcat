@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/*
+
 import org.redisson.Redisson;
 import org.redisson.api.RBucket;
 import org.redisson.api.RMap;
@@ -12,7 +12,7 @@ import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 
 import crunchify.com.tutorials.pojo.SessionInfo;
-*/
+
 import redis.clients.jedis.Jedis;
 
 import java.io.BufferedReader;
@@ -54,12 +54,12 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 	    //check whether server is running or not 
 	    try {
 	    	out.println("Testing if Redis Server is running: " ); 
-	    	out.println("Redis Server is running: "+jedis.ping()); 
+	    	out.println("Redis Server Nde is running: "+jedis.ping()); 
 	    }catch(Exception e ) {
 	    	e.printStackTrace();
-	    	out.println("error from jedis:" + e.getMessage());
+	    	out.println("error from jedis node:" + e.getMessage());
 	    }
-	    /*
+	    
 	    
 
 	    SessionInfo info = new SessionInfo();
@@ -68,7 +68,8 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 	        Config conf = new Config();
 	        conf.useSingleServer().setTimeout(3600000);
 	        conf.useSingleServer().setRetryInterval(3600000);
-	        conf.useSingleServer().setAddress("redis://192.168.86.47:7001");
+	        //conf.useSingleServer().setAddress("redis://192.168.86.47:7001");
+	        conf.useSingleServer().setAddress("redis://epacache-001.50fbfo.0001.use2.cache.amazonaws.com:6379");
 	        
 	        RedissonClient redisson = Redisson.create(conf);
 	        RMap<String,Object> map = redisson.getMap("myCache");
@@ -88,8 +89,9 @@ public class CrunchifyWarUsingMaven extends HttpServlet{
 	        
 	    }catch (Exception ex) {
 	        ex.printStackTrace();
+	        out.println("error from redisson:" + ex.getMessage());
 	    }
-	    */
+	    
 		
 		 //runCLICmd("aws ecs list-container-instances",out);
 		 String yourCliCommandWithArgs = "export NO_PROXY=169.254.169.254,169.254.170.2 ; curl http://169.254.169.254/latest/meta-data/local-ipv4";
